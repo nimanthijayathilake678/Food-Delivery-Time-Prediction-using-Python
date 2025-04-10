@@ -27,3 +27,14 @@ def distanceCalculate(lat1,lon1,lat2,lon2):
     a=np.sin(d_lat/2)**2 + np.cos(deg_to_rad(lat1)) * np.cos(deg_to_rad(lat2))* np.sin(d_lon/2)**2
     c=2*np.arctan2(np.sqrt(a),np.sqrt(1-a))
     return R *c
+
+#calculate distance between each pair of points
+data['distance'] = np.nam
+
+for i in range(len(data)):
+    data.loc[i,'distance']=distanceCalculate(data.loc[i, 'Restaurant_latitude'], 
+                                        data.loc[i, 'Restaurant_longitude'], 
+                                        data.loc[i, 'Delivery_location_latitude'], 
+                                        data.loc[i, 'Delivery_location_longitude'])
+
+#Data Exploration 
