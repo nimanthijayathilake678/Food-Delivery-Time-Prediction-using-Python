@@ -29,7 +29,7 @@ def distanceCalculate(lat1,lon1,lat2,lon2):
     return R *c
 
 #calculate distance between each pair of points
-data['distance'] = np.nam
+data['distance'] = np.nan
 
 for i in range(len(data)):
     data.loc[i,'distance']=distanceCalculate(data.loc[i, 'Restaurant_latitude'], 
@@ -38,3 +38,61 @@ for i in range(len(data)):
                                         data.loc[i, 'Delivery_location_longitude'])
 
 #Data Exploration 
+#finding the relationships between the features
+
+# 1. relationship of distance and the time taken to diliver
+
+figure = px.scatter(data_frame = data, 
+                    x="distance",
+                    y="Time_taken(min)", 
+                    size="Time_taken(min)", 
+                    trendline="ols", 
+                    title = "Relationship Between Distance and Time Taken")
+figure.show()
+
+#the cahrt dispayes that consisten that most partners diliver food by 20-30 min
+#regardles of the distance
+
+#2. relationship between the dilivry time and diviery partners age
+
+figure = px.scatter(data_frame = data, 
+                    x="Delivery_person_Age",
+                    y="Time_taken(min)", 
+                    size="Time_taken(min)", 
+                    color = "distance",
+                    trendline="ols", 
+                    title = "Relationship Between delivery partner age and Time Taken")
+figure.show()
+
+#03.relationship between the dilivery time and the delivery partners ratings
+
+figure = px.scatter(data_frame = data, 
+                    x="Delivery_person_Ratings",
+                    y="Time_taken(min)", 
+                    size="Time_taken(min)", 
+                    color = "distance",
+                    trendline="ols", 
+                    title = "Relationship Between Time Taken and Ratings")
+figure.show()
+
+#04.the relationship of the type of food orderd and vehicle the delivery partner have
+
+fig = px.box(data, 
+             x="Type_of_vehicle",
+             y="Time_taken(min)", 
+             color="Type_of_order")
+fig.show()
+
+#for the conclusion the age,distance,rating affect the devlivery time
+
+#train a machine learing model using a LSTM neural network model 
+
+
+##slitting the data 
+#splitting data
+from sklearn.model_selection import train_test_split
+x = np.array(data[["Delivery_person_Age", 
+                   "Delivery_person_Ratings", 
+                   "distance"]])
+y = np.array(data[["Time_taken(min)"]])
+xtrain, xtest, ytrain, ytest = train_test_split
