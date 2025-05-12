@@ -99,10 +99,9 @@ xtrain, xtest, ytrain, ytest = train_test_split(x, y,
                                                 test_size=0.10, 
                                                 random_state=42)
 
-#create the LSTM neural network model
-from tensorflow.python.keras import Sequential
-from tensorflow.python.keras.layers import Dense,LSTM
-
+# creating the LSTM neural network model
+from keras.models import Sequential
+from keras.layers import Dense, LSTM
 model = Sequential()
 model.add(LSTM(128, return_sequences=True, input_shape= (xtrain.shape[1], 1)))
 model.add(LSTM(64, return_sequences=False))
