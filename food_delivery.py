@@ -121,4 +121,4 @@ c = int(input("Total Distance: "))
 features = np.array([[a, b, c]])
 print("Predicted Delivery Time in Minutes =",model.predict(features))
 
-model.save("saved_model.keras")  # Save the trained model
+model.save("saved_model.keras")  # Save the model i trained
